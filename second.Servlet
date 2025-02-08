@@ -1,0 +1,35 @@
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class DateTimeServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get current date and time
+        LocalDateTime now = LocalDateTime.now();
+        
+        // Format the date and time
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        String date = now.format(dateFormatter);
+        String time = now.format(timeFormatter);
+
+        // Set response content type
+        response.setContentType("text/html");
+
+        // Get the output writer
+        PrintWriter out = response.getWriter();
+
+        // Display the current date and time
+        out.println("<html>");
+        out.println("<head><title>Current Date and Time</title></head>");
+        out.println("<body>");
+        out.println("<h2>Current Date and Time</h2>");
+        out.println("<p><b>Date:</b> " + date + "</p>");
+        out.println("<p><b>Time:</b> " + time + "</p>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+}
